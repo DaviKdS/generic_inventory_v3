@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Controle de Estoque</title>
+  <meta name="theme-color" content="#f6f7f4">
+  <script>
+    (() => {
+      try {
+        const storedTheme = localStorage.getItem("generic-inventory.theme");
+        const systemTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        document.documentElement.dataset.theme = storedTheme || systemTheme;
+      } catch {
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
+  <link rel="stylesheet" href="/styles.css">
+  <script defer src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+  <script defer src="/app.js"></script>
+</head>
+<body>
+  <main id="authGate" class="auth-gate">
+    <section class="auth-panel">
+      <div class="auth-brand-row">
+        <strong class="brand-mark" aria-label="Controle de Estoque">GI</strong>
+        <div class="quick-actions">
+          <button class="language-toggle" type="button" data-language-toggle title="Use English" aria-label="Use English">EN</button>
+          <button class="icon-button ghost theme-toggle" type="button" data-theme-toggle title="Alternar tema" aria-label="Alternar tema" data-i18n-title="Alternar tema" data-i18n-aria-label="Alternar tema">
+            <i data-lucide="moon"></i>
+          </button>
+        </div>
+      </div>
+      <div>
+        <h1 data-i18n>Controle de Estoque</h1>
+        <p id="authHint" data-i18n>Entre com uma conta liberada pelo administrador.</p>
+      </div>
+
+      <div class="tabs auth-tabs">
+        <button class="tab active" type="button" data-auth-tab="login" data-i18n>Entrar</button>
+        <button class="tab" type="button" data-auth-tab="register" data-i18n>Cadastro</button>
+        <button class="tab" type="button" data-auth-tab="password" data-i18n>Senha</button>
+      </div>
+
+      <form id="loginForm" class="auth-form active">
+        <label>
+          <span data-i18n>E-mail</span>
+          <input name="email" autocomplete="email" required>
+        </label>
+        <label>
+          <span data-i18n>Senha</span>
+          <input name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <div class="form-actions">
+          <button class="button primary" type="submit" data-i18n>Entrar</button>
+          <button class="button ghost" type="button" data-forgot-password data-i18n>Link de senha</button>
+        </div>
+      </form>
+
+      <form id="registerForm" class="auth-form">
+        <label>
+          <span data-i18n>Nome</span>
+          <input name="name" autocomplete="name" required>
+        </label>
+        <label>
+          <span data-i18n>E-mail</span>
+          <input name="email" type="email" autocomplete="email" required>
+        </label>
+        <label>
+          <span data-i18n>Senha</span>
+          <input name="password" type="password" minlength="8" autocomplete="new-password" required>
+        </label>
+        <button class="button primary full" type="submit" data-i18n>Enviar cadastro</button>
+      </form>
+
+      <form id="passwordForm" class="auth-form">
+        <label>
+          <span data-i18n>Nova senha</span>
+          <input name="password" type="password" minlength="8" autocomplete="new-password" required>
+        </label>
+        <label>
+          <span data-i18n>Confirmar senha</span>
+          <input name="confirmation" type="password" minlength="8" autocomplete="new-password" required>
+        </label>
+        <button class="button primary full" type="submit" data-i18n>Definir senha</button>
+      </form>
+
+      <p id="authMessage" class="message"></p>
+    </section>
+  </main>
+
+  <section id="appShell" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <strong class="brand-mark compact" aria-label="Controle de Estoque">GI</strong>
+        <div>
+          <strong data-i18n>Estoque</strong>
+          <span data-i18n>Controle geral</span>
+        </div>
+      </div>
+      <nav id="navMenu" class="nav-menu"></nav>
+    </aside>
+
+    <div class="workspace">
+      <header class="topbar">
+        <div>
+          <h1 id="viewTitle" data-i18n>Estoque</h1>
+          <p id="viewSubtitle"></p>
+        </div>
+        <div id="userMenu" class="user-menu"></div>
+      </header>
+
+      <section id="toast" class="toast hidden"></section>
+      <section id="content" class="content"></section>
+    </div>
+  </section>
+</body>
+</html>
